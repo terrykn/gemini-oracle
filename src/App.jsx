@@ -1,10 +1,25 @@
-import './App.css';
-import News from './components/News';
+import {
+  HashRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+
+import Home from "./pages/Home";
+import Info from "./pages/Info";
+import Prompt from "./pages/Prompt";
+import Response from "./pages/Response";
 
 function App() {
   return (
     <div>
-      <News />
+      <HashRouter>
+        <Routes>
+          <Route path="" element={<Home />} />
+          <Route path="/info" element={<Info />} />
+          <Route path="/prompt" element={<Prompt />} />
+          <Route path="/response" element={<Response />} />
+        </Routes>
+      </HashRouter>
     </div>
   );
 }

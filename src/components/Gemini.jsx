@@ -1,13 +1,15 @@
 // node --version # Should be >= 18
 // npm install @google/generative-ai
   
-import { useState, useEffect } from 'react';
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 
 const MODEL_NAME = "gemini-1.0-pro";
 const GOOGLE_GEMINIAPI_KEY = process.env.REACT_APP_GOOGLE_GEMINIAPI_KEY;
 
 async function runGemini(prompt) {
+    // INPUT: prompt
+    // OUTPUT: response from Gemini in text format
+    
     const genAI = new GoogleGenerativeAI(GOOGLE_GEMINIAPI_KEY);
     const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 

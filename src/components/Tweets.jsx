@@ -38,51 +38,63 @@ function Tweets({ input }) {
 
       `I need you to analyze this JSON formatted timeline from Twitter: ${tweetData}.
 
-      Based on the timeline, generate a very detailed analysis on these key categories: 
-      
-      [Key Event(s), Relevant Location(s) and Date(s), 
-      Summarization of event and trending relevant discussion, 
-      Sentiment comparing varying views and emotions on the topic, 
+
+      Based on the timeline, generate a very detailed analysis on these key categories:
+     
+      [Key Topic(s), Relevant Location(s) and Date(s),
+      Summarization of event and trending relevant discussion,
+      Sentiment comparing varying views and emotions on the topic,
       Impact assessment, and 3 Top Tweets with the most likes.]
 
-      Be very detailed and professional in your response. Output exactly in the following format. 
+
+      Be very detailed and professional in your response. Output exactly in the following format.
       DO NOT utilize HTML formatting like ** **, only PLAIN text and paragraphs to separate each section
       exactly like shown in the following EXAMPLE:
+
 
       Key event: EXAMPLE EVENT
       EXAMPLE CITY, EXAMPLE DATE(s)
 
+
       *new paragraph*
+
 
       What's happening?
       EXAMPLE SUMMARY OF EVENT AND TRENDING RELEVANT DISCUSSIONS
      
       *new paragraph*
 
+
       Sentiment analysis:
       EXAMPLE DETAILED SENTIMENT ANALYSIS
       EXAMPLE COMPARE TWO TWEETS AND THEIR EMOTIONS
 
+
       *new paragraph*
+
 
       Impact assessment:
       EXAMPLE DETAILED IMPACT ASSESSMENT
 
+
       *new paragraph*
-      
+     
       Top Tweets:
       EXAMPLE TWEET 1
       NUMBER LIKES, NUMBER RETWEETS
 
+
       *new paragraph*
-      
+     
       EXAMPLE TWEET 2
       NUMBER LIKES, NUMBER RETWEETS
 
+
       *new paragraph*
-      
+     
       EXAMPLE TWEET 3
       NUMBER LIKES, NUMBER RETWEETS
+
       ` 
 
       const geminiResponse = await runGemini(prompt);

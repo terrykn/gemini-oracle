@@ -3,6 +3,7 @@ import Tweets from './Tweets';
 import runGemini from './Gemini';
 
 function News() {
+    
     const [data, setData] = useState(null);
     const [tweetSearch, setTweetSearch] = useState('');
     const [input, setInput] = useState('');
