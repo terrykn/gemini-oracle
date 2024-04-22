@@ -1,3 +1,4 @@
+import './App.css';
 import {
   HashRouter,
   Routes,
@@ -8,6 +9,8 @@ import Home from "./pages/Home";
 import Info from "./pages/Info";
 import Prompt from "./pages/Prompt";
 import Response from "./pages/Response";
+
+// use HashRouter because it works with Github Pages
 
 function App() {
   return (

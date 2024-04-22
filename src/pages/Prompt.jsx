@@ -1,9 +1,9 @@
-
+import News from '../components/News';
 
 function Prompt () {
     return (
         <div>
-            <h1>Prompt Page</h1>
+            <News />
         </div>
     )
 }

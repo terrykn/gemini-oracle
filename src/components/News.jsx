@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Tweets from './Tweets';
 import runGemini from './Gemini';
+import { Button, Card, Grid, Link, TextField } from '@mui/material';
+import { Search } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 function News() {
     
@@ -10,7 +13,7 @@ function News() {
 
     const NEWS_RAPIDAPI_KEY = process.env.REACT_APP_NEWS_RAPIDAPI_KEY;
     const NEWS_RAPIDAPI_HOST = process.env.REACT_APP_NEWS_RAPIDAPI_HOST;
-    const url = 'https://news-api14.p.rapidapi.com/top-headlines?country=us&language=en&pageSize=15&sortBy=timestamp';
+    const url = 'https://news-api14.p.rapidapi.com/top-headlines?country=us&language=en&pageSize=6&sortBy=timestamp';
 
     const options = {
         method: 'GET',
@@ -52,49 +55,111 @@ function News() {
         setTweetSearch(input);
     }
 
+    const navigate = useNavigate();
+
+    const handleHomeClick = () => {
+        navigate('/');
+    }
+
+    
+
     return (
         <div>
-            <button onClick={fetchData}>DISPLAY THE NEWS ARTICLES</button>
+            <div style={{ padding: '2rem', paddingBottom: '1rem' }}>
+                <Button
+                    style={{ fontWeight: '900', fontSize: '1rem' }}
+                    variant="outlined" 
+                    color="primary" 
+                    onClick={handleHomeClick}
+                >
+                    Back
+                </Button>
+                
+                <Button 
+                    style={{ fontWeight: '900', fontSize: '1rem', marginLeft: '.5rem' }}
+                    variant="outlined" 
+                    color="primary" 
+                    onClick={fetchData}
+                >
+                    DISPLAY NEWS ARTICLES
+                </Button>
 
-            <h3>MAKE UR OWN SEARCH</h3>
-            <input
-                type="text"
-                value={input}
-                onChange={handleInputChange}
-            />
+                <div style={{ height: '1rem' }} />
 
-            <button onClick={handleCustomSearch}>SEARCH THIS ON TWITTER</button>
-
-            <h3>TWEET SEARCH:</h3>
-            {tweetSearch}
-            <h3>TWEET SEARCH OUTPUT:</h3>
-            <Tweets input={tweetSearch} />
-
-            <h3>NEWS ARTICLES</h3>
-
-            <ul>
                 {data && (
-                    <div>
+                <Grid container spacing={2}>
+                    {data.articles && data.articles.map((item, index) => (
 
-                        <h3>TWEET SEARCH:</h3>
-                        {tweetSearch}
-                        <h3>TWEET SEARCH OUTPUT:</h3>
-                        <Tweets input={tweetSearch} />
+                    // xs (1 per row), sm (2 per row), md (3 per row)
+                    <Grid item xs={12} sm={6} md={4} key={index}>
+                        <Card style={{ padding: '1.5rem', backgroundColor: '#141525', borderRadius: '.5rem' }}>
+                            <div>
+                                <Link 
+                                    style={{ fontWeight: '600', color: '#9aa2e0', textDecoration: 'none' }} 
+                                    href={item.url} target="_blank" rel="noopener noreferrer"
+                                >
+                                    {item.title}
+                                    
+                                </Link>
+                            </div>
 
-                        <h3>NEWS ARTICLES:</h3>
-                        <p>Total Results: {data.totalResults}</p>
-                        {data.articles && data.articles.map((item, index) => (
-                            <li key={index}>
-                                <a href={item.url} target="_blank">{item.title}</a>
-                                <button onClick={() => handleTweetSearch(item.title)}>SEARCH RELATED KEYWORDS TO THIS ARTICLE ON TWITTER</button>
-                                <p>Published Date: {item.published_date}</p>
-                                <p>Publisher: {item.publisher.name}</p>
-                            </li>
-                        ))}
+                            <p style={{ color: '#9aa2e0' }}>Date: {item.published_date}</p>
 
-                    </div>
+                            <Button 
+                                variant="outlined" 
+                                color="primary" 
+                                onClick={() => handleTweetSearch(item.title)}
+                            >
+                                Analyze
+                            </Button>
+
+                            <Button 
+                                style={{ marginLeft: '.3rem' }}
+                                variant="outlined" 
+                                color="primary" 
+                                onClick={() => window.open(item.url, '_blank')}
+                            >
+                                Read
+                            </Button>
+                        </Card>
+                    </Grid>
+                    ))}
+                </Grid>
                 )}
-            </ul>
+            </div>
+
+            <div style={{ padding: '2rem', paddingTop: '0' }}>
+                <p>Have something specific in mind? Create a custom search below:</p>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Button 
+                        variant="outlined"
+                        
+                        onClick={handleCustomSearch}
+                    >
+                        <Search style={{ height: '2.6rem' }} />
+                    </Button>
+                    <TextField
+                        style={{ backgroundColor: '#141525', borderRadius: '.3rem', width: '100vw' }}
+                        InputProps={{
+                            style: {
+                                color: '#9aa2e0',
+                            }
+                        }}
+                        type="text"
+                        value={input}
+                        onChange={handleInputChange}
+                    >
+                        
+                    </TextField>
+                </div>
+            </div>
+
+            <div>
+            <h3>TWEET SEARCH:</h3>
+                {tweetSearch}
+                <h3>TWEET SEARCH OUTPUT:</h3>
+                <Tweets input={tweetSearch} />
+            </div>
         </div>
     );
 }
