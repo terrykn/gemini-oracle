@@ -45,7 +45,7 @@ function Response() {
             >
                 BACK
             </Button>
-            <h1>Let's analyze your search!</h1>
+            <h1>Let's analyze your search topic!</h1>
             <Tweets input={searchQuery} />
         </div>
     );

@@ -26,7 +26,7 @@ function Info () {
             <div style={{ height: '1rem' }} />
 
             <Card style={{ padding: '4rem', paddingTop: '2rem', backgroundColor: '#141525', borderRadius: '.5rem', color: '#ced1f1' }}>
-                <h1>What is PROJECT NAME?</h1>
+                <h1>What is <span className='gradient-text'>PROJECT NAME</span>?</h1>
                 <p>Every day, approximately 500 million posts are
                     uploaded to X (formerly Twitter). PROJECT NAME leverages Gemini's linguistic capabilities to harness this vast, readily-available 
                     source of information and analyze emerging internet trends. 

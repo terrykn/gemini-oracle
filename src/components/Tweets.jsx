@@ -73,6 +73,10 @@ function Tweets({ input }) {
           Be very detailed and descriptive in your response, utilizing the data provided. 
           Mention 2-3 quotes from the data. They have to reference exactly the tweets 
           from the data provided and credit the corresponding usernames exactly from the data.
+
+          If necessary, you may create charts, graphs, and diagrams to make connections in the
+          data and show significant features in the discussions, such as certain words being mentioned,
+          comparing and contrasting two sides, and any other things, etc.
           `;
           const geminiResponse = await runGemini(prompt);
           setResponse(geminiResponse);
@@ -102,6 +106,11 @@ function Tweets({ input }) {
     return (
       <div>
 
+      <h3>SEARCH:</h3>
+      <Card style={{ padding: '1rem', paddingBottom: '1rem', backgroundColor: '#141525', borderRadius: '.5rem', color: '#ced1f1' }}>
+        {input}
+      </Card>
+
       <h3>ANALYSIS:</h3>
       <Card style={{ padding: '1rem', paddingBottom: '1rem', backgroundColor: '#141525', borderRadius: '.5rem', color: '#ced1f1' }}>
         {loading ? (
@@ -116,6 +125,7 @@ function Tweets({ input }) {
       <div style={{ height: '1rem' }} />
 
       <Button 
+        className='gradient-text'
         style={{ fontWeight: '900', fontSize: '1rem' }}
         variant="outlined" 
         color="primary" 

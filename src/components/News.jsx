@@ -63,6 +63,7 @@ function News() {
                 </Button>
                 
                 <Button 
+                    className='gradient-text'
                     style={{ fontWeight: '900', fontSize: '1rem', marginLeft: '.5rem' }}
                     variant="outlined" 
                     color="primary" 
@@ -82,7 +83,7 @@ function News() {
                         <Card style={{ padding: '1.5rem', backgroundColor: '#141525', borderRadius: '.5rem' }}>
                             <div>
                                 <Link 
-                                    style={{ fontWeight: '600', color: '#B4B6F4', textDecoration: 'none' }} 
+                                    style={{ fontWeight: '600', color: '#AECDE8', textDecoration: 'none' }} 
                                     href={item.url} target="_blank" rel="noopener noreferrer"
                                 >
                                     {item.title}
@@ -120,7 +121,6 @@ function News() {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Button 
                         variant="outlined"
-                        
                         onClick={handleCustomSearch}
                     >
                         <Search style={{ height: '2.6rem' }} />
