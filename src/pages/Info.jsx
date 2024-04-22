@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 function Info () {
     const navigate = useNavigate();
 
-    const handleHomeClick = () => {
-        navigate('/');
-    }
-
     const handleStartClick = () => {
         navigate('/prompt');
+    }
+
+    const handleHomeClick = () => {
+        navigate('/');
     }
 
     return (
@@ -40,7 +40,7 @@ function Info () {
                     Gemini will generate relevant keywords for your search, 
                     or 2.) Enter a custom search query in the search bar.</p>
 
-                <p>The process is simple! The search will extract a comprehensive timeline of X posts through RapidAPI. 
+                <p>The process is quick and simple! The search will extract a comprehensive timeline of X posts through RapidAPI. 
                     Gemini then analyzes this timeline according to a specified prompt, producing a 
                     response that includes an overview, a detailed assessment, and sentiment analysis 
                     on user opinions surrounding the subject.

@@ -1,9 +1,17 @@
 import { useState, useEffect } from 'react';
 import runGemini from './Gemini';
+import Markdown from 'react-markdown';
+import { Button, Grid, Card, CardContent, CardHeader, CardMedia, Avatar, Typography, CircularProgress } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import CommentIcon from '@mui/icons-material/Comment';
 
 function Tweets({ input }) {
     const [data, setData] = useState(null);
-    const [response, setResponse] = useState('');
+    const [response, setResponse] = useState('Click \"GENERATE ANALYSIS\" to process and analyze your search.');
+    const [loading, setLoading] = useState(false);
+    const [loadingTweets, setLoadingTweets] = useState(false);
 
     const X_RAPIDAPI_KEY = process.env.REACT_APP_X_RAPIDAPI_KEY;
     const X_RAPIDAPI_HOST = process.env.REACT_APP_X_RAPIDAPI_HOST;
@@ -18,10 +26,19 @@ function Tweets({ input }) {
     };
   
     useEffect(() => {
-      fetchData();
+      // prevent tweets from re-rendering
+      // after they've already been rendered for this search
+
+      if(data && data.length > 1){
+        return;
+      }
+      else if(input.length > 1){
+        fetchData();
+      }
     }, [input]);
   
     const fetchData = async () => {
+      setLoadingTweets(true);
       try {
         const response = await fetch(url, options);
         const result = await response.text();
@@ -31,88 +48,145 @@ function Tweets({ input }) {
       catch (error) {
         console.error(error);
       }
+      finally{
+        setLoadingTweets(false);
+      }
     }
 
     const handleGeminiPrompt = async (tweetData) => {
-      const prompt = 
+      setLoading(true);
+      try{
+        if(tweetData && tweetData.length > 1){
+          const prompt = 
+  
+          `Read this timeline from Twitter: ${tweetData}.
+  
+          Feel free to be expressive, creative, and analyze the tweets VERY specifically
+          as if you are a professional at reading sentiment from tweets. What key terms were used
+          and what does that say about user opinions? Exactly how many times were certain things mentioned? Etc.
+          Based on the timeline, tell me a very detailed analysis 2-3 paragraphs per section.
+          including exactly only these key categories: background, relevant locations and dates,
+          summarization of event and trending discussions,
+          sentiment analysis comparing views and emotions on the topic,
+          impact assessment.
+  
+          Be very detailed and descriptive in your response, utilizing the data provided. 
+          Mention 2-3 quotes from the data. They have to reference exactly the tweets 
+          from the data provided and credit the corresponding usernames exactly from the data.
+          `;
+          const geminiResponse = await runGemini(prompt);
+          setResponse(geminiResponse);
+        }
+        else{
+          setResponse('Uh oh! It seems like a search hasn\'t been made. Please make a search! (or keep clicking, it may take a extra few seconds)');
+        }
+      }
+      catch(error){
+        console.error(error);
+        setResponse("An error occurred while processing the prompt!");
+      }
+      finally{
+        setLoading(false);
+      }
+    }
 
-      `I need you to analyze this JSON formatted timeline from Twitter: ${tweetData}.
+    const parsedData = JSON.parse(data);
+    const totalTweets = parsedData && parsedData.timeline ? parsedData.timeline.length : 0;
 
+    const navigate = useNavigate();
 
-      Based on the timeline, generate a very detailed analysis on these key categories:
-     
-      [Key Topic(s), Relevant Location(s) and Date(s),
-      Summarization of event and trending relevant discussion,
-      Sentiment comparing varying views and emotions on the topic,
-      Impact assessment, and 3 Top Tweets with the most likes.]
-
-
-      Be very detailed and professional in your response. Output exactly in the following format.
-      DO NOT utilize HTML formatting like ** **, only PLAIN text and paragraphs to separate each section
-      exactly like shown in the following EXAMPLE:
-
-
-      Key event: EXAMPLE EVENT
-      EXAMPLE CITY, EXAMPLE DATE(s)
-
-
-      *new paragraph*
-
-
-      What's happening?
-      EXAMPLE SUMMARY OF EVENT AND TRENDING RELEVANT DISCUSSIONS
-     
-      *new paragraph*
-
-
-      Sentiment analysis:
-      EXAMPLE DETAILED SENTIMENT ANALYSIS
-      EXAMPLE COMPARE TWO TWEETS AND THEIR EMOTIONS
-
-
-      *new paragraph*
-
-
-      Impact assessment:
-      EXAMPLE DETAILED IMPACT ASSESSMENT
-
-
-      *new paragraph*
-     
-      Top Tweets:
-      EXAMPLE TWEET 1
-      NUMBER LIKES, NUMBER RETWEETS
-
-
-      *new paragraph*
-     
-      EXAMPLE TWEET 2
-      NUMBER LIKES, NUMBER RETWEETS
-
-
-      *new paragraph*
-     
-      EXAMPLE TWEET 3
-      NUMBER LIKES, NUMBER RETWEETS
-
-      ` 
-
-      const geminiResponse = await runGemini(prompt);
-      setResponse(geminiResponse);
+    const handleStartClick = () => {
+        navigate('/prompt');
     }
   
     return (
       <div>
-        <ul>
-          <h3>DATA:</h3>
-          {data}
-          <button onClick={() => handleGeminiPrompt(data)}>SEND DATA TO GEMINI TO PROMPT AND GENERATE A RESPONSE</button>
 
-          <h3>RESPONSE:</h3>
+      <h3>ANALYSIS:</h3>
+      <Card style={{ padding: '1rem', paddingBottom: '1rem', backgroundColor: '#141525', borderRadius: '.5rem', color: '#ced1f1' }}>
+        {loading ? (
+          <CircularProgress /> 
+        ) : (
+          <Markdown>
+            {response}
+          </Markdown>
+        )}
+      </Card>
 
+      <div style={{ height: '1rem' }} />
 
-          {response}
-        </ul>
+      <Button 
+        style={{ fontWeight: '900', fontSize: '1rem' }}
+        variant="outlined" 
+        color="primary" 
+        onClick={() => handleGeminiPrompt(data)}
+      >
+        GENERATE ANALYSIS
+      </Button>
+
+      <Button 
+        style={{ fontWeight: '900', fontSize: '1rem', marginLeft: '1rem' }}
+        variant="outlined" 
+        color="primary" 
+        onClick={handleStartClick}
+      >
+        START A NEW SEARCH
+      </Button>
+
+      <h3>TWEETS FOUND: ({totalTweets})</h3>
+      
+        <Card style={{ padding: '2rem', backgroundColor: '#141525', borderRadius: '.5rem', color: '#ced1f1' }}>
+          {loadingTweets ? (
+          <CircularProgress /> 
+          ) : (
+          <Grid container spacing={2}>
+            {parsedData && parsedData.timeline && parsedData.timeline.map((item, index) => (
+              <Grid item xs={12} sm={6} md={4}>
+                <Card key={index}>
+                  <CardContent>
+                      <CardHeader
+                          avatar={
+                              item.user_info && (
+                                  <Avatar src={item.user_info.avatar} alt={item.user_info.name} />
+                              )
+                          }
+                          title={<Typography variant="h6">{item.user_info ? item.user_info.screen_name : 'Unknown User'}</Typography>}
+                          subheader={<Typography variant="subtitle2">{item.created_at}</Typography>}
+                      />
+
+                      {item.entities && item.entities.media && item.entities.media.map((mediaItem, mediaIndex) => (
+                          <CardMedia
+                              key={mediaIndex}
+                              component="img"
+                              image={mediaItem.media_url_https}
+                              alt={`Media ${mediaIndex + 1}`}
+                              style={{ width: '100%', maxWidth: '20rem', maxHeight: '20rem' }}
+                          />
+                      ))}
+
+                  <br />
+
+                      <Typography variant="body2" style={{ marginBottom: '1rem' }}>
+                          {item.text}
+                      </Typography>
+
+                      <Typography>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <VisibilityIcon style={{ marginRight: '.2rem' }} /> {item.views} 
+                          <FavoriteIcon style={{ marginLeft: '.5rem', marginRight: '.2rem' }} /> {item.favorites} 
+                          <CommentIcon style={{ marginLeft: '.5rem', marginRight: '.2rem' }} /> {item.replies} 
+                        </div>
+                      </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+
+          )}
+        </Card>
+      
+          
       </div>
     );
 }
