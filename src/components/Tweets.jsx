@@ -67,7 +67,7 @@ function Tweets({ input }) {
           as if you are a professional sentiment analyzer. Be expressive and detailed. What key terms were used
           and what does that say about public opinions? Exactly how many times were certain things mentioned? Etc.
 
-          Include exactly only these key information BASED ON the timeline you analyze: 
+          Include exactly only these key categorized sections BASED ON the timeline you analyze. Provide at least 2-3 paragraphs each: 
           background, relevant locations and/or dates,
           summarization of event, trending discussions from the data,
           detailed sentiment analysis,
