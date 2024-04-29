@@ -63,19 +63,19 @@ function Tweets({ input }) {
   
           `Read this timeline from Twitter: ${tweetData}.
   
-          Be expressive but analytical. Analyze the tweets VERY specifically
-          as if you are a professional sentiment analyzer. What key terms were used
-          and what does that say about public opinions? Exactly how many times were certain things mentioned? Include
-          these different relevant related statistics about the tweets.
+          Analyze the tweets VERY specifically
+          as if you are a professional sentiment analyzer. Be expressive and detailed. What key terms were used
+          and what does that say about public opinions? Exactly how many times were certain things mentioned? Etc.
 
-          Include exactly only these key categories BASED ON the data you analyze: background, relevant locations and dates,
-          summarization of event and trending discussions,
-          detailed sentiment analysis comparing views and emotions on the topic,
+          Include exactly only these key information BASED ON the timeline you analyze: 
+          background, relevant locations and/or dates,
+          summarization of event, trending discussions from the data,
+          detailed sentiment analysis,
           impact assessment.
   
-          Be very detailed and descriptive in your response, utilizing the data provided. 
-          Mention 2-3 quotes from the data, which reference exactly the tweets 
-          from the data provided, credit corresponding usernames exactly from the data.
+          Be very detailed and descriptive, utilizing exactly the data provided. 
+          Mention 2-3 quotes exactly from the data, with the correct corresponding usernames 
+          exactly from the data.
           `;
           const geminiResponse = await runGemini(prompt);
           setResponse(geminiResponse);
