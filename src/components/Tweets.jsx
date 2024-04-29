@@ -66,17 +66,15 @@ function Tweets({ input }) {
           Analyze the tweets VERY specifically
           as if you are a professional sentiment analyzer. Be expressive and detailed.
 
-          Include exactly only these key categorized sections BASED ON the timeline you analyze. Provide at least 2-3 paragraphs each,
-          as if you are writing a detailed essay paper with sections. Do not use lists: 
-          background, relevant locations and/or dates,
-          summarization of event, trending discussions from the data,
-          detailed sentiment analysis,
-          impact assessment.
+          Include exactly only these key categorized sections BASED ON the timeline you analyze. Provide at least 2-3 paragraphs each.
+          Be analytical and detailed, do not use lists: 
+          background (what is this event/topic about?), relevant locations and/or dates,
+          summarization of event, trending discussions from the data (what key words were used? what did users talk about?),
+          detailed sentiment analysis comparing views and emotions on the topic,
+          impact assessment (what lasting impact does this event have?).
   
           Be very detailed and descriptive and comprehensive, not leaving out any detail mentioned in the data, 
           utilizing exactly only the data provided. 
-          Mention 2-3 quotes exactly from the data, with the correct corresponding usernames 
-          exactly from the data.
           `;
           const geminiResponse = await runGemini(prompt);
           setResponse(geminiResponse);
