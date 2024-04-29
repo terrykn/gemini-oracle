@@ -57,32 +57,31 @@ function Tweets({ input }) {
       setLoading(true);
       try{
         if(tweetData && tweetData.length > 1){
+
+          // prompt for Gemini to generate response
           const prompt = 
   
           `Read this timeline from Twitter: ${tweetData}.
   
-          Feel free to be expressive, creative, and analyze the tweets VERY specifically
-          as if you are a professional at reading sentiment from tweets. What key terms were used
-          and what does that say about user opinions? Exactly how many times were certain things mentioned? Etc.
-          Based on the timeline, tell me a very detailed analysis 2-3 paragraphs per section.
-          including exactly only these key categories: background, relevant locations and dates,
+          Be expressive but analytical. Analyze the tweets VERY specifically
+          as if you are a professional sentiment analyzer. What key terms were used
+          and what does that say about public opinions? Exactly how many times were certain things mentioned? Include
+          these different relevant related statistics about the tweets.
+
+          Include exactly only these key categories BASED ON the data you analyze: background, relevant locations and dates,
           summarization of event and trending discussions,
-          sentiment analysis comparing views and emotions on the topic,
+          detailed sentiment analysis comparing views and emotions on the topic,
           impact assessment.
   
           Be very detailed and descriptive in your response, utilizing the data provided. 
-          Mention 2-3 quotes from the data. They have to reference exactly the tweets 
-          from the data provided and credit the corresponding usernames exactly from the data.
-
-          If necessary, you may create charts, graphs, and diagrams to make connections in the
-          data and show significant features in the discussions, such as certain words being mentioned,
-          comparing and contrasting two sides, and any other things, etc.
+          Mention 2-3 quotes from the data, which reference exactly the tweets 
+          from the data provided, credit corresponding usernames exactly from the data.
           `;
           const geminiResponse = await runGemini(prompt);
           setResponse(geminiResponse);
         }
         else{
-          setResponse('Uh oh! It seems like a search hasn\'t been made. Please make a search! (or keep clicking, it may take a extra few seconds)');
+          setResponse('Uh oh! It seems like a search hasn\'t been made. Please make a search or try again.');
         }
       }
       catch(error){

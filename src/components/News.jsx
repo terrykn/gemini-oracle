@@ -117,7 +117,7 @@ function News() {
             </div>
 
             <div style={{ padding: '2rem', paddingTop: '0' }}>
-                <p>Have something specific in mind? Make a custom search below.</p>
+                <p>Have something else specific in mind? Create a custom search below.</p>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Button 
                         variant="outlined"

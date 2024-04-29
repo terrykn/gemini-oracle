@@ -26,13 +26,13 @@ function Info () {
             <div style={{ height: '1rem' }} />
 
             <Card style={{ padding: '4rem', paddingTop: '2rem', backgroundColor: '#141525', borderRadius: '.5rem', color: '#ced1f1' }}>
-                <h1>What is <span className='gradient-text'>PROJECT NAME</span>?</h1>
+                <h1>What is <span className='gradient-text'>ORACLE</span>?</h1>
                 <p>Every day, approximately 500 million posts are
-                    uploaded to X (formerly Twitter). PROJECT NAME leverages Gemini's linguistic capabilities to harness this vast, readily-available 
-                    source of information and analyze emerging internet trends. 
-                    Through PROJECT NAME, we can instantly access a unique
-                    perspective on public opinion of current events and emerging cultural phenomena, 
-                    extending beyond the scope of traditional media.
+                    uploaded to X. ORACLE leverages Gemini's linguistic capabilities to harness this vast, readily-available 
+                    information and analyze emerging trends. 
+                    Through ORACLE, we can quickly evaluate real-time, crowdsourced
+                    public opinion and sentiment analysis on current events and emerging cultural phenomena, 
+                    extending beyond the scope of traditional media sources.
                 </p>
 
                 <h1>How does it work?</h1>

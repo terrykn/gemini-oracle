@@ -10,7 +10,7 @@ import Info from "./pages/Info";
 import Prompt from "./pages/Prompt";
 import Response from "./pages/Response";
 
-// use HashRouter because it works with Github Pages
+// use HashRouter because it works 
 
 function App() {
   return (
