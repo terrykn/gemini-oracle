@@ -63,18 +63,17 @@ function Tweets({ input }) {
   
           `Read this timeline from Twitter: ${tweetData}.
   
-          Analyze the tweets VERY specifically
-          as if you are a professional sentiment analyzer. Be expressive and detailed.
-
-          Include exactly only these key categorized sections BASED ON the timeline you analyze. Provide at least 2-3 paragraphs each.
+          Based on this timeline, generate a very detailed analysis
+          as if you are a professional sentiment analyzer on these key categorizes. Provide at least 2-3 paragraphs each.
+          
           Be analytical and detailed, do not use lists: 
-          background (what is this event/topic about?), relevant locations and/or dates,
-          summarization of event, trending discussions from the data (what key words were used? what did users talk about?),
-          detailed sentiment analysis comparing views and emotions on the topic,
-          impact assessment (what lasting impact does this event have?).
+          [Background (brief history about event/topic?), Relevant Location(s) and Date(s),
+          Summarization (summarize what the posts are discussing about the topic), Trending Discussions
+          (what key words were used? what did users talk about?),
+          Sentiment Analysis (compare views and emotions on the topic between users in the data),
+          Impact Assessment (what lasting impact does this event have?).
   
-          Be very detailed and descriptive and comprehensive, not leaving out any detail mentioned in the data, 
-          utilizing exactly only the data provided. 
+          Be very detailed, professional, and descriptive in your response, in organized markdown format. 
           `;
           const geminiResponse = await runGemini(prompt);
           setResponse(geminiResponse);
