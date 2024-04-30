@@ -64,9 +64,10 @@ function Tweets({ input }) {
           `Read this timeline from Twitter: ${tweetData}.
   
           Based on this timeline, generate a very detailed analysis
-          as if you are a professional sentiment analyzer on these key categorizes. Provide at least 2-3 paragraphs each.
+          as if you are a professional sentiment analyzer on these key categorizes. Provide at least 3-4 paragraphs each,
+          incorporating specific details mentioned from the timeline data into your paragraphs.
           
-          Be analytical and detailed, do not use lists: 
+          Be analytical and detailed, do not use lists only paragraphs in this format: 
           [Background (brief history about event/topic?), Relevant Location(s) and Date(s),
           Summarization (summarize what the posts are discussing about the topic), Trending Discussions
           (what key words were used? what did users talk about?),
